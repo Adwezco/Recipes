@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Recipes App</title>
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous"
+        />
+    </head>
+
+    <body>
+        <div class="container">
+        <form id="addRecipe">
+            <div class="form-group row">
+                <label
+                    for="ingredientname"
+                    class="col-sm-2 col-form-label"
+                >Ingredient Name</label>
+                <div class="col-sm-10">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="ingredientname"
+                        name="ingredientname"
+                        placeholder="Rice"
+                    >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label
+                    for="quantity"
+                    class="col-sm-2 col-form-label"
+                >Ingredient Quantity</label>
+                <div class="col-sm-10">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="quantity"
+                        name="quantity"
+                        placeholder="100g"
+                    >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label
+                    for="dishname"
+                    class="col-sm-2 col-form-label"
+                >Dish Description</label>
+                <div class="col-sm-10">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="dishname"
+                        name="dishname"
+                        placeholder="Jollof Rice"
+                    >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label
+                    for="dishdescription"
+                    class="col-sm-2 col-form-label"
+                >Dish Description</label>
+                <div class="col-sm-10">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="dishdescription"
+                        name="dishdescription"
+                        placeholder="Nigerian Dish"
+                    >
+                </div>
+            </div>
+            <button
+                type="submit"
+                class="btn btn-primary align-self-center"
+            >Add</button>
+        </form>
+        </div>
+        <script>
+            document
+                .querySelector("#addRecipe")
+                .addEventListener("submit", async function (e) {
+                    e.preventDefault();
+                    console.log(new URLSearchParams(new FormData(e.target)).toString());
+                    const res = await fetch("/api/add", {
+                        body: new URLSearchParams(new FormData(e.target)).toString(),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                    });
+                    console.log(await res.json());
+                });
+        </script>
+    </body>
+</html>
